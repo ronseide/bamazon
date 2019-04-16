@@ -1,0 +1,25 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "package file for bamazon",
+  "main": "bamazon.js",
+  "dependencies": {
+    "inquirer": "^6.3.1",
+    "mysql": "^2.16.0",
+    "save": "^2.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ronseide/bamazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ronseide/bamazon/issues"
+  },
+  "homepage": "https://github.com/ronseide/bamazon#readme"
+}
