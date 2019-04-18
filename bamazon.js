@@ -9,22 +9,20 @@ function start() {
         password: "Dob120963",
         database: "bamazon"
     });
-    var boatBought = "";
     connection.connect(function (err) {
         if (err) throw err;
         connection.query("SELECT * FROM products",
             function (err, results, fields) {
                 if (err) throw err;
                 for (var i = 0; i < results.length; i++) {
-                    console.log("---------------------------------------------------")
-                    console.log("#" + (i + 1) + ": "
+                    console.log("---------------------------------------------------\n#" + (i + 1) + ": "
                         + results[i].product_name
                         + " (" + results[i].department_name + ")"
                         + " - $" + results[i].price
                         + " (qty:" + results[i].stock_quantity + ")"
                     );
-                    boatBought = results[i].product_name;
                 }
+                console.log("---------------------------------------------------\n")
                 inquirer.prompt([
                     {
                         name: "choice",
@@ -37,12 +35,12 @@ function start() {
                         message: "How many boats do you want?"
                     }])
                     .then(function (answer) {
-                        console.log("You purchased a " + boatBought);
-                        console.log("Your total purchase price is $" + results[answer.choice - 1].price * answer.quantity);
-                        if (results[answer.choice - 1].quantity < answer.quantity) {
+                        if (results[answer.choice - 1].stock_quantity < answer.quantity) {
                             console.log("Insufficient Quantity!");
                         }
                         else {
+                            console.log("You purchased a " + results[answer.choice - 1].product_name);
+                            console.log("Your total purchase price is $" + results[answer.choice - 1].price * answer.quantity);    
                             connection.query(
                                 "UPDATE products SET stock_quantity = stock_quantity - ? WHERE id = ?",
                                 [
@@ -54,7 +52,6 @@ function start() {
                                 }
                             );
                         }
-                        // start();
                         reStart();
                     });
             });
@@ -72,11 +69,10 @@ function start() {
             start();
           }
           else{
-            connection.end();
+            process.exit(0);
           }
         });
       }
-      
 }
 start();
 
